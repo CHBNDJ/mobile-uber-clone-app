@@ -76,22 +76,29 @@
 // export default SignIn;
 
 import { View, Text, Image, ScrollView, Alert } from 'react-native';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { images } from '@/constant';
 import InputField from '@/components/InputField';
 import CustomButton from '@/components/CustomButton';
 import { Link, useRouter } from 'expo-router';
 import OAuth from '@/components/OAuth';
-import { useSignIn } from '@clerk/clerk-expo';
+import { useSignIn, useAuth } from '@clerk/clerk-expo';
 
 const SignIn = () => {
   const { signIn, setActive, isLoaded } = useSignIn();
+  const { isSignedIn, isLoaded: authLoaded } = useAuth();
   const router = useRouter();
 
   const [form, setForm] = useState({
     email: '',
     password: '',
   });
+
+  useEffect(() => {
+    if (authLoaded && isSignedIn) {
+      router.replace('/(root)/(tabs)/home');
+    }
+  }, [authLoaded, isSignedIn]);
 
   const onSignInPress = useCallback(async () => {
     if (!isLoaded) return;
