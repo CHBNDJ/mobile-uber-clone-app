@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Pick Up",
+    "name": "PickUp",
     "slug": "mobile-uber-clone-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -8,6 +8,13 @@
     "scheme": "mobileubercloneapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#2F80ED"
+    },
+
     "ios": {
       "supportsTablet": true
     },

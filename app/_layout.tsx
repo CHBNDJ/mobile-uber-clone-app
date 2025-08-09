@@ -1,10 +1,25 @@
 import { useFonts } from 'expo-font';
-import { Slot, Stack } from 'expo-router';
+import { Slot } from 'expo-router';
 import 'react-native-reanimated';
 import './global.css';
-
+import * as SplashScreen from 'expo-splash-screen';
 import { ClerkProvider } from '@clerk/clerk-expo';
 import { tokenCache } from '@clerk/clerk-expo/token-cache';
+import { useEffect } from 'react';
+import { LogBox } from 'react-native';
+
+// Prevent the splash screen from auto-hiding before asset loading is complete.
+SplashScreen.preventAutoHideAsync();
+
+const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
+
+if (!publishableKey) {
+  throw new Error(
+    'Missing Publishable Key. Please set EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env',
+  );
+}
+
+LogBox.ignoreLogs(['Clerk:']);
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -17,13 +32,18 @@ export default function RootLayout() {
     'Jakarta-SemiBold': require('../assets/fonts/PlusJakartaSans-SemiBold.ttf'),
   });
 
+  useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
   if (!fontsLoaded) {
-    // Async font loading only occurs in development.
     return null;
   }
 
   return (
-    <ClerkProvider tokenCache={tokenCache}>
+    <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
       <Slot />
     </ClerkProvider>
   );

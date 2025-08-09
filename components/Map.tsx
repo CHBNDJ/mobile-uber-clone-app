@@ -1,12 +1,10 @@
 import { View, Text } from 'react-native';
 import React from 'react';
 
-const Chat = () => {
+export default function Map() {
   return (
     <View>
-      <Text>chat</Text>
+      <Text>Map</Text>
     </View>
   );
-};
-
-export default Chat;
+}

@@ -54,7 +54,7 @@ const Onboarding = () => {
                   resizeMode="contain"
                 />
 
-                <View className="mt-10 flex-col items-center justify-center gap-4 ">
+                <View className="mt-10 flex-col items-center justify-center gap-4">
                   <Text className="mx-10 text-center font-JakartaBold text-3xl text-black">
                     {item.title}
                   </Text>
