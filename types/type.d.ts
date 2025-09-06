@@ -68,7 +68,7 @@ declare interface ButtonProps extends TouchableOpacityProps {
 }
 
 declare interface GoogleInputProps {
-  icon?: ImageSourcePropType;
+  icon?: string;
   initialLocation?: string;
   containerStyle?: string;
   textInputBackgroundColor?: string;

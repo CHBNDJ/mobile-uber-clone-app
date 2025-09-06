@@ -25,7 +25,7 @@ const RideCard = ({
           source={{
             uri: `https://maps.geoapify.com/v1/staticmap?style=osm-bright&width=600&height=400&center=lonlat:${destination_longitude},${destination_latitude}&zoom=14&apiKey=${process.env.EXPO_PUBLIC_GEOAPIFY_API_KEY}`,
           }}
-          className="h-20 w-20 rounded-lg"
+          className="h-24 w-24 rounded-lg"
         />
         <View className="mx-5 flex flex-1 flex-col gap-y-5">
           <View className="flex flex-row items-center gap-x-2">

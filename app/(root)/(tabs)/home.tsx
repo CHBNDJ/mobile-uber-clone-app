@@ -14,7 +14,6 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocationStore } from '@/store';
-import { useStateForPath } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 
 const recentRids = [
