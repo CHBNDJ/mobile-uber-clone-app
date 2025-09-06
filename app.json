@@ -8,13 +8,11 @@
     "scheme": "mobileubercloneapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#2F80ED"
     },
-
     "ios": {
       "supportsTablet": true
     },
@@ -45,9 +43,9 @@
           "resizeMode": "contain",
           "backgroundColor": "#2F80ED"
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
-
     "experiments": {
       "typedRoutes": true
     }

@@ -1,4 +1,9 @@
-import { TextInputProps, TouchableOpacityProps } from 'react-native';
+import {
+  ImageSourcePropType,
+  TextInputProps,
+  TouchableOpacityProps,
+} from 'react-native';
+import { Image } from 'react-native-reanimated/lib/typescript/Animated';
 
 declare interface Driver {
   driver_id: number;
@@ -63,7 +68,7 @@ declare interface ButtonProps extends TouchableOpacityProps {
 }
 
 declare interface GoogleInputProps {
-  icon?: string;
+  icon?: ImageSourcePropType;
   initialLocation?: string;
   containerStyle?: string;
   textInputBackgroundColor?: string;

@@ -3,6 +3,7 @@ import Map from '@/components/Map';
 import RideCard from '@/components/RideCard';
 import { icons, images } from '@/constant';
 import { useUser } from '@clerk/clerk-expo';
+import * as Location from 'expo-location';
 import {
   ActivityIndicator,
   FlatList,
@@ -12,6 +13,9 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useLocationStore } from '@/store';
+import { useStateForPath } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
 
 const recentRids = [
   {
@@ -121,15 +125,43 @@ const recentRids = [
 ];
 
 export default function Home() {
+  const { setUserLocation, setDestinationLocation } = useLocationStore();
   const { user } = useUser();
   const loading = true;
 
+  const [hasPermission, setHasPermission] = useState(false);
+
   const handleSignOut = () => {};
+
   const handleDestinationPress = () => {};
 
+  useEffect(() => {
+    const requestLocation = async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setHasPermission(false);
+        return;
+      }
+      let location = await Location.getCurrentPositionAsync({});
+
+      const address = await Location.reverseGeocodeAsync({
+        latitude: location.coords?.latitude,
+        longitude: location.coords?.longitude,
+      });
+      setUserLocation({
+        latitude: location.coords?.latitude,
+        longitude: location.coords?.longitude,
+        // latitude: 37.78825,
+        // longitude: -122.4324,
+        address: `${address[0].name}, ${address[0].region}`,
+      });
+    };
+
+    requestLocation();
+  }, []);
+
   return (
-    <SafeAreaView className="flex-1bg-general-500">
-      {/* <Text className="mx-5 my-5 font-JakartaBold text-xl">Recent Rides</Text> */}
+    <SafeAreaView className="flex-1 bg-general-500">
       <FlatList
         data={recentRids?.slice(0, 5)}
         renderItem={({ item }) => <RideCard ride={item} />}
@@ -176,10 +208,11 @@ export default function Home() {
               <Text className="mb-3 mt-5 font-JakartaBold text-xl">
                 Your Current Location
               </Text>
-              <View className="flex h-80 flex-row items-center bg-transparent">
+              <View className="h-80 w-full bg-transparent">
                 <Map />
               </View>
             </>
+            <Text className="my-5 font-JakartaBold text-xl">Recent Rides</Text>
           </>
         )}
       />
