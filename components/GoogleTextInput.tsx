@@ -24,7 +24,7 @@ const GoogleTextInput = ({
       className={`relative z-50 flex flex-col rounded-xl ${containerStyle} mb-5`}
     >
       {/* Champ de saisie */}
-      <View className="flex-row items-center rounded-full border border-general-400 px-3 py-2">
+      <View className="flex-row items-center rounded-full px-3 py-2">
         <Image
           source={icon ? icon : icons.search}
           className="mr-2 h-6 w-6"
@@ -55,6 +55,8 @@ const GoogleTextInput = ({
             const details = await searchDetails(loc.place_id);
             if (!details) return;
 
+            setTerm(details.formatted_address);
+
             handlePress?.({
               latitude: details.geometry.location.lat,
               longitude: details.geometry.location.lng,
@@ -63,6 +65,7 @@ const GoogleTextInput = ({
           }}
           style={{
             paddingVertical: 12,
+            paddingHorizontal: 14,
             borderBottomWidth: 1,
             borderColor: '#e0e0e0',
           }}
